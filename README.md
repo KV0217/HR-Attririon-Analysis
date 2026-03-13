@@ -1,59 +1,91 @@
 # 🧑‍💼 HR Attrition Analysis
 
-Predicts which employees are likely to leave using XGBoost (AUC: 0.79)
-on real IBM HR data. Features Survival Analysis, Cost of Attrition
-calculator, Department heatmap, and interactive prediction system.
+Predicts which employees are likely to leave using XGBoost (AUC: 0.79) on real IBM HR data. Features Survival Analysis, Cost of Attrition calculator, Department × Role heatmap, Promotion Gap analysis, Manager Impact analysis, and an interactive prediction system.
 
-🔍 What Makes This Unique
-- Survival Analysis           — Kaplan-Meier curves showing *when* employees leave
-- Cost Calculator             — $X replacement cost identified (150% of annual salary)
-- Department × Role Heatmap   — highest flight-risk combinations
-- Promotion Gap Analysis      — stagnation drives attrition
-- Manager Impact Analysis     — proves "people leave managers not companies"
-- SHAP Force Plot             — explains *why* each employee is at risk
+## 🔍 What Makes This Unique
+- **Survival Analysis** — Kaplan-Meier curves answer *when* employees leave, not just *if*. Log-rank test confirms statistical significance
+- **Cost of Attrition Calculator** — estimates replacement cost per employee (150% of annual salary) broken down by department
+- **Department × Role Heatmap** — identifies highest flight-risk combinations at a glance
+- **Promotion Gap Analysis** — proves stagnation drives attrition with data
+- **Manager Impact Analysis** — data proves "people leave managers, not companies"
+- **SHAP Force Plot** — explains why each individual employee is at risk
+- **Interactive Prediction** — single employee / batch / examples with per-employee cost impact
 
-📊 Dataset
+## 📊 Dataset
 IBM HR Analytics — 1,470 employees × 35 features | Attrition rate ~16%
 
-🛠️ Tech Stack
+## 🛠️ Tech Stack
 Python · XGBoost · Scikit-learn · SHAP · Lifelines · Imbalanced-learn · Power BI
 
- 📁 Project Structure
-           | File                             -       Description |
-           | `HR_Attrition_Analysis_v4.ipynb` -       Full notebook |
-           | `requirements.txt`               -       Dependencies |
+## 📁 Project Structure
+| File | Description |
+|------|-------------|
+| `HR_Attrition_Analysis_v4.ipynb` | Full notebook |
+| `requirements.txt` | Dependencies |
 
-🔍 Key Steps
-1.  EDA                    —    Attrition by Department, Income, Age, OverTime
-2.  Heatmap                —    Department × Job Role attrition rates
-3.  Survival Analysis      —    Kaplan-Meier + Log-rank test
-4.  Promotion Gap          —    Years since promotion vs attrition
-5.  Manager Impact         —    Years with manager vs attrition
-6.  SMOTE                  —    Class imbalance handling
-7.  Models                 —    LR, RF, Gradient Boosting, XGBoost
-8.  Tuning                 —    RandomizedSearchCV + Threshold optimization
-9.  SHAP                   —    Feature importance + beeswarm + force plot
-10. KMeans                 —    4 employee segments via PCA
-11. Cost Calculator        —    Replacement cost by department
-12. rediction System       —    Single / batch / examples
+## 🔍 Key Sections
+| # | Section | What it does |
+|---|---------|-------------|
+| 1 | Libraries | All imports including lifelines |
+| 2 | Load Dataset | Real IBM HR CSV from Kaggle |
+| 3 | EDA | 6 charts — attrition by dept, income, overtime |
+| 4 | Department Heatmap | Department × Job Role attrition rates |
+| 5 | Survival Analysis | Kaplan-Meier + Log-rank test |
+| 6 | Promotion Gap | Years since promotion vs attrition |
+| 7 | Manager Impact | Years with manager vs attrition |
+| 8 | Feature Engineering | 7 engineered features + RiskScore |
+| 9 | SMOTE | Class imbalance handling |
+| 10 | Model Comparison | LR, RF, Gradient Boosting, XGBoost |
+| 11 | ROC Curve | All models compared |
+| 12 | Hyperparameter Tuning | RandomizedSearchCV + Threshold optimization |
+| 13 | SHAP | Feature importance + beeswarm + force plot |
+| 14 | KMeans | 4 employee segments via PCA |
+| 15 | Cost Calculator | Replacement cost by department + job level |
+| 16 | Prediction System | Interactive menu — single / batch / examples |
 
-📈 Results
+## 📈 Results
+| Model | AUC |
+|-------|-----|
+| Logistic Regression | ~0.72 |
+| Random Forest | ~0.75 |
+| Gradient Boosting | ~0.77 |
+| XGBoost (tuned) | **0.79** |
 
-             Model      -     AUC 
+## 🔑 Key Insights
+- OverTime employees have significantly lower survival probability (Log-rank p=0.000)
+- Employees with no promotion in 4+ years have highest attrition rate
+- New manager relationships (0-1 year) spike attrition
+- Low job satisfaction + poor work-life balance = strongest combined risk signal
+- Top SHAP drivers: OverTime · MonthlyIncome · JobSatisfaction · YearsAtCompany
 
-| Logistic Regression     -   0.72 |
-| Random Forest           -   0.75 |
-| Gradient Boosting       -   0.77 |
-| XGBoost (tuned)         -   0.79 |
+## 💰 Cost of Attrition
+- Replacement cost estimated at 150% of annual salary (industry standard)
+- Sales department carries highest replacement cost burden
+- Retaining 30% of at-risk employees saves significant annual replacement spend
 
-💡 Top Attrition Drivers
-- OverTime
-- Monthly Income
-- Job Satisfaction
-- Years at Company
-- Business Travel
-- Years Since Last Promotion
+## 🧬 Survival Analysis Findings
+- OverTime employees leave significantly earlier than non-overtime employees
+- Frequent business travel group shows steeper survival curve decline
+- Log-rank test p-value = 0.0000 — difference is not due to chance
 
-👤 Author
-KAVIN VENKAT V R 
-[LinkedIn](YOUR_LINKEDIN_URL) · [GitHub](YOUR_GITHUB_URL)
+## 📦 Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+```
+pandas
+numpy
+scikit-learn
+imbalanced-learn
+xgboost
+shap
+matplotlib
+seaborn
+lifelines
+joblib
+```
+
+## 👤 Author
+**KAVIN VENKAT**
+[LinkedIn](www.linkedin.com/in/kavin-venkat-1710s0202) 
