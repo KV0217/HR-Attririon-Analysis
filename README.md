@@ -11,13 +11,8 @@ Predicts which employees are likely to leave using XGBoost(~0.79) on real IBM HR
 
 ## Screenshots
 ### Streamlit Dashboard
-![Prediction Results](screenshots/streamlit_prediction.png)
-![Retention Suggestions](screenshots/streamlit_suggestions.png)
-![Cost Calculator](screenshots/cost_calculator.png)
+![App Demo](screenshots/streamlit_hr_demo.png)
 
-### API
-![API Docs](screenshots/api_docs.png)
-![API Response](screenshots/api_response.png)
 
 ## 🔍 What Makes This Unique
 - **Survival Analysis** — Kaplan-Meier curves answer *when* employees leave, not just *if*. Log-rank test (p=0.0000) confirms OverTime employees leave significantly earlier
