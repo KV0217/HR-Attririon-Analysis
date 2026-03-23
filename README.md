@@ -2,6 +2,23 @@
 
 Predicts which employees are likely to leave using XGBoost(~0.79) on real IBM HR data. Features Kaplan-Meier Survival Analysis, Cost of Attrition calculator, Department × Role heatmap, Promotion Gap analysis, Manager Impact analysis, SQL Risk Analysis, and an interactive prediction system with per-employee cost impact.
 
+## Live Deployments
+| | URL |
+|--|--|
+| REST API | https://hr-attrition-api-qzeq.onrender.com |
+| API Docs | https://hr-attrition-api-qzeq.onrender.com/docs |
+| Streamlit App | https://hr-attrition-api-kv.streamlit.app |
+
+## Screenshots
+### Streamlit Dashboard
+![Prediction Results](screenshots/streamlit_prediction.png)
+![Retention Suggestions](screenshots/streamlit_suggestions.png)
+![Cost Calculator](screenshots/cost_calculator.png)
+
+### API
+![API Docs](screenshots/api_docs.png)
+![API Response](screenshots/api_response.png)
+
 ## 🔍 What Makes This Unique
 - **Survival Analysis** — Kaplan-Meier curves answer *when* employees leave, not just *if*. Log-rank test (p=0.0000) confirms OverTime employees leave significantly earlier
 - **Cost of Attrition Calculator** — replacement cost per employee (150% of annual salary) broken down by department and job level
@@ -15,35 +32,24 @@ Predicts which employees are likely to leave using XGBoost(~0.79) on real IBM HR
 ## 📊 Dataset
 IBM HR Analytics — 1,470 employees × 35 features | Attrition rate: ~16%
 
-## 🛠️ Tech Stack
-Python · XGBoost · Scikit-learn · SHAP · Lifelines · Imbalanced-learn · SQLite · Power BI
+## What's Inside
+- EDA + feature engineering (PromotionGap, RiskScore, TenureRatio)
+- SMOTE for class imbalance
+- Kaplan–Meier survival analysis (log-rank p < 0.0001)
+- SHAP values — top drivers: overtime, job level, stock options
+- Cost-of-Attrition calculator (150% salary replacement model)
+- SQL: PARTITION BY promotion-gap matrix, manager tenure risk
 
-## 📁 Project Structure
-| File | Description |
-|------|-------------|
-| `hr-attrition.ipynb` | Full notebook |
-| `requirements.txt` | Dependencies |
+## API Features
+- Returns replacement cost in $ per employee
+- Ranked retention suggestions with estimated attrition reduction %
+- Batch endpoint with department-level attrition summary
 
-## 🔍 Key Sections
-| # | Section | What it does |
-|---|---------|-------------|
-| 1 | Libraries | All imports including lifelines |
-| 2 | Load Dataset | IBM HR CSV — 35 features |
-| 3 | EDA | 6 charts — attrition by dept, income, overtime |
-| 3b | SQL Risk Analysis | CTEs · Window Functions · Cost analysis |
-| 4 | Department Heatmap | Department × Job Role attrition rates |
-| 5 | Survival Analysis | Kaplan-Meier + Log-rank statistical test |
-| 6 | Promotion Gap | Years since promotion vs attrition rate |
-| 7 | Manager Impact | Years with manager vs attrition — proves "leave managers" |
-| 8 | Feature Engineering | IncomePerYear · TenureRatio · RiskScore · PromotionGap |
-| 9 | SMOTE | Class imbalance handling |
-| 10 | Model Comparison | LR · RF · Gradient Boosting · XGBoost pipeline |
-| 11 | ROC Curve | All models compared |
-| 12 | Hyperparameter Tuning | RandomizedSearchCV + Threshold optimization |
-| 13 | SHAP | Feature importance + beeswarm + force plot |
-| 14 | KMeans | 4 employee risk segments via PCA |
-| 15 | Cost Calculator | Replacement cost by department + job level |
-| 16 | Prediction System | Interactive menu — single / batch / examples |
+## Tech Stack
+Python · XGBoost · Lifelines · SHAP · SMOTE · FastAPI · Docker · Streamlit · Power BI · SQLite · Render
+
+## Related
+- API repo: [HR-Attrition-API](https://github.com/KV0217/HR-Attrition-API)
 
 ## 📈 Model Results
 | Model | AUC |
