@@ -87,4 +87,4 @@ FROM dept_cost ORDER BY replacement_cost DESC
 
 ## 👤 Author
 **KAVIN VENKAT**
-[LinkedIn](www.linkedin.com/in/kavin-venkat-1710s0202) 
+[LinkedIn](https://www.linkedin.com/in/kvsherly17100210) 
