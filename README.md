@@ -1,90 +1,54 @@
-# 🧑‍💼 HR Attrition Analysis
+<div align="center">
+  <h1>🧑‍💼 HR Attrition Prediction & Risk Analysis</h1>
+  <p>
+    <a href="#"><img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" /></a>
+    <a href="#"><img src="https://img.shields.io/badge/XGBoost-15C39A?style=for-the-badge&logo=xgboost&logoColor=white" alt="XGBoost" /></a>
+    <a href="#"><img src="https://img.shields.io/badge/Snowflake-29B5E8?style=for-the-badge&logo=snowflake&logoColor=white" alt="Snowflake" /></a>
+    <a href="#"><img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" /></a>
+    <a href="#"><img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit" /></a>
+  </p>
+  <p><em>Predicting employee flight-risk using XGBoost and Survival Analysis, powered by a Snowflake Cloud Data Warehouse.</em></p>
+</div>
 
-Predicts which employees are likely to leave using XGBoost(~0.79) on real IBM HR data. Features Kaplan-Meier Survival Analysis, Cost of Attrition calculator, Department × Role heatmap, Promotion Gap analysis, Manager Impact analysis, SQL Risk Analysis, and an interactive prediction system with per-employee cost impact.
+---
 
-## Live Deployments
-| | URL |
-|--|--|
-| REST API | https://hr-attrition-api-qzeq.onrender.com |
-| API Docs | https://hr-attrition-api-qzeq.onrender.com/docs |
-| Streamlit App | https://hr-attrition-api-kv.streamlit.app |
+## 🚀 Live Deployments
 
-## Screenshots
-### Streamlit Dashboard
-![App Demo](screenshots/streamlit_hr_demo.png)
+| 🌐 Application | 🔗 Link |
+|:---|:---|
+| **REST API** | [hr-attrition-api.onrender.com](https://hr-attrition-api-qzeq.onrender.com) |
+| **API Docs (Swagger)** | [Interactive Swagger UI](https://hr-attrition-api-qzeq.onrender.com/docs) |
+| **Streamlit Web App** | [Live Dashboard](https://hr-attrition-api-kv.streamlit.app) |
 
+## 🌟 Key Features & Unique Additions
+- ❄️ **Snowflake Data Warehouse Integration:** Automated ETL pipelines streaming structured employee records into a cloud data warehouse for real-time risk profiling.
+- ⏳ **Survival Analysis (Kaplan-Meier):** Answers *when* employees are likely to leave, not just *if*. Log-rank tests confirm OverTime employees leave significantly earlier (p < 0.0001).
+- 💸 **Cost of Attrition Calculator:** Dynamically computes replacement costs (industry-standard 150% of annual salary) mapped across departments and seniority.
+- 🎯 **SHAP Model Explainability:** Explains the localized driving factors behind *every single individual's* attrition probability prediction.
+- 📊 **SQL Risk Profiling:** Advanced SQL analysis using CTEs and Window Functions directly inside Snowflake to compute quartile risk rankings.
 
-## 🔍 What Makes This Unique
-- **Survival Analysis** — Kaplan-Meier curves answer *when* employees leave, not just *if*. Log-rank test (p=0.0000) confirms OverTime employees leave significantly earlier
-- **Cost of Attrition Calculator** — replacement cost per employee (150% of annual salary) broken down by department and job level
-- **Department × Role Heatmap** — identifies highest flight-risk combinations visually
-- **Promotion Gap Analysis** — proves stagnation drives attrition with data
-- **Manager Impact Analysis** — data proves "people leave managers, not companies"
-- **SQL Risk Analysis** — attrition risk ranking, cost analysis, overtime matrix using CTEs and Window Functions
-- **SHAP Force Plot** — explains why each individual employee is flagged as at-risk
-- **Threshold Optimization** — finds best classification threshold for maximum attrition recall
+## 🛠️ Technology Stack
+* **Machine Learning:** `XGBoost`, `Scikit-Learn`, `Lifelines`, `SHAP`, `SMOTE`
+* **Data Engineering & Cloud:** `Snowflake`, `Pandas`, `SQL`
+* **Backend & API:** `FastAPI`, `Docker`, `Uvicorn`
+* **Frontend:** `Streamlit`, `Power BI`
 
-## 📊 Dataset
-IBM HR Analytics — 1,470 employees × 35 features | Attrition rate: ~16%
-
-## What's Inside
-- EDA + feature engineering (PromotionGap, RiskScore, TenureRatio)
-- SMOTE for class imbalance
-- Kaplan–Meier survival analysis (log-rank p < 0.0001)
-- SHAP values — top drivers: overtime, job level, stock options
-- Cost-of-Attrition calculator (150% salary replacement model)
-- SQL: PARTITION BY promotion-gap matrix, manager tenure risk
-
-## API Features
-- Returns replacement cost in $ per employee
-- Ranked retention suggestions with estimated attrition reduction %
-- Batch endpoint with department-level attrition summary
-
-## Tech Stack
-Python · XGBoost · Lifelines · SHAP · SMOTE · FastAPI · Docker · Streamlit · Power BI · SQLite · Render
-
-## Related
-- API repo: [HR-Attrition-API](https://github.com/KV0217/HR-Attrition-API)
-
-## 📈 Model Results
-| Model | AUC |
-|-------|-----|
+## 📈 Model Performance
+| Model | AUC Score |
+|:---|:---|
 | Logistic Regression | ~0.72 |
 | Random Forest | ~0.75 |
 | Gradient Boosting | ~0.77 |
-| **XGBoost (Tuned)** | **~0.79** |
+| **XGBoost (Tuned)** | **~0.79** 🏆 |
 
-## 🗄️ SQL Highlights
-```sql
--- Cost of Attrition by Department (CTE + Window Function)
-WITH dept_cost AS (
-    SELECT Department,
-           ROUND(SUM(CASE WHEN Attrition=1
-                 THEN MonthlyIncome*12 ELSE 0 END),0) AS salary_at_risk
-    FROM hr GROUP BY Department
-)
-SELECT *, ROUND(salary_at_risk*1.5,0) AS replacement_cost,
-    RANK() OVER (ORDER BY salary_at_risk DESC) AS cost_rank
-FROM dept_cost ORDER BY replacement_cost DESC
-```
+## 💡 Key Business Insights
+1. **Overtime Burnout:** Employees working overtime have the steepest survival curve decline from Year 1.
+2. **Promotion Stagnation:** The highest attrition bracket correlates heavily with employees stagnant for 5+ years without promotion.
+3. **Management Friction:** New manager relationships (0–1 year tenure) spark dramatic attrition spikes.
+4. **Compensation Matrix:** Top overall SHAP drivers are OverTime, MonthlyIncome, and JobSatisfaction.
 
-## 🔑 Key Insights
-- OverTime employees leave significantly earlier — Log-rank p=0.0000
-- Employees with 5+ years no promotion have highest attrition rate
-- New manager relationships (0-1 year) spike attrition dramatically
-- Low JobSatisfaction + OverTime = strongest combined risk signal
-- Top SHAP drivers: OverTime · MonthlyIncome · JobSatisfaction · YearsAtCompany
-
-## 🧬 Survival Analysis Findings
-- OverTime group has steeper survival curve decline from year 1
-- Frequent travel group shows earlier departure pattern
-- Statistical significance confirmed via log-rank test
-
-## 💰 Cost of Attrition
-- Replacement cost = 150% of annual salary (industry standard)
-- Sales department carries highest total replacement cost burden
-- Interactive calculator shows savings from retention interventions
-
-## 👤 Author
-**KAVIN VENKAT**
-[LinkedIn](https://www.linkedin.com/in/kvsherly17100210) 
+---
+<div align="center">
+  <b>Built by Kavin Venkat</b> <br>
+  <a href="https://www.linkedin.com/in/kvsherly17100210">LinkedIn</a> • <a href="https://github.com/KV0217">GitHub</a>
+</div>
