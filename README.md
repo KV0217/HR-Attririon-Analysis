@@ -13,7 +13,11 @@
 ---
 
 ## Screenshots
-![App Demo](https://raw.githubusercontent.com/KV0217/HR-Attririon-Analysis/main/screenshots/streamlit_hr_demo.png)
+<p align="center">
+  <img src="screenshots/HR-Attrition1%20.jpg" width="32%" />
+  <img src="screenshots/HR%20Atrittion2.jpg" width="32%" />
+  <img src="screenshots/HR%20attrition%203.jpg" width="32%" />
+</p>
 
 ## 🚀 Live Deployments
 
