@@ -14,9 +14,7 @@
 
 ## Screenshots
 <p align="center">
-  <img src="screenshots/HR-Attrition1%20.jpg" width="32%" />
-  <img src="screenshots/HR%20Atrittion2.jpg" width="32%" />
-  <img src="screenshots/HR%20attrition%203.jpg" width="32%" />
+  <img src="screenshots/slider.gif" width="100%" />
 </p>
 
 ## 🚀 Live Deployments
