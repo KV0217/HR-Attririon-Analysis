@@ -33,10 +33,7 @@
 - 📊 **SQL Risk Profiling:** Advanced SQL analysis using CTEs and Window Functions directly inside Snowflake to compute quartile risk rankings.
 
 ## 🛠️ Technology Stack
-* **Machine Learning:** `XGBoost`, `Scikit-Learn`, `Lifelines`, `SHAP`, `SMOTE`
-* **Data Engineering & Cloud:** `Snowflake`, `Pandas`, `SQL`
-* **Backend & API:** `FastAPI`, `Docker`, `Uvicorn`
-* **Frontend:** `Streamlit`, `Power BI`
+XGBoost · Scikit-Learn · Lifelines · SHAP · SMOTE · Snowflake · Pandas · SQL · FastAPI · Docker · Uvicorn · Streamlit · Power BI
 
 ## 📈 Model Performance
 | Model | AUC Score |
