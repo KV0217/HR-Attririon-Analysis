@@ -12,6 +12,9 @@
 
 ---
 
+## Screenshots
+![App Demo](https://raw.githubusercontent.com/KV0217/HR-Attririon-Analysis/main/screenshots/streamlit_hr_demo.png)
+
 ## 🚀 Live Deployments
 
 | 🌐 Application | 🔗 Link |
